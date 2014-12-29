@@ -7,7 +7,6 @@ app.use('/', express.static(__dirname + '/pages'));
 
 app.use( bodyParser.json() );
 
-
 var goats = [
   {id: 1, name: 'Goat 1', price: "$535.60"},
   {id: 2, name: 'Goat 2', price: "$741.60"},
