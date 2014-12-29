@@ -1,0 +1,39 @@
+<html>
+
+  <head>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  </head>
+
+  <body>
+    <div id="goatList">
+    </div>
+
+    <script id="goatTemplate" type="text/x-handlebars-template">
+      {{#each this}}
+      <div class="goat">
+        {{name}} - {{price}}
+        {{/each}}
+      </div>
+    </script>
+
+
+    <script>
+      $(document).ready(function(e){
+        var goats = [
+          {name: 'Goat 1', price: "$545.60"},
+          {name: 'Goat 3', price: "$658.34"}
+        ];
+
+        var source = $("#goatTemplate").html();
+        var template = Handlebars.compile(source);
+        var html = template(goats);
+
+        $('#goatList').html(html);
+      })
+
+    </script>
+
+  </body>
+
+</html>

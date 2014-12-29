@@ -1,0 +1,88 @@
+<html>
+
+<head>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+</head>
+
+<body>
+<div id="goatList"></div>
+<div id="message"></div>
+
+<script id="goatTemplate" type="text/x-handlebars-template">
+  {{#each this}}
+  <div class="goat">
+
+    {{name}} - <input class="price" value="{{price}}"> <button class="update-button" data-id="{{id}}" >update price</button>
+    {{/each}}
+  </div>
+</script>
+
+
+<script>
+  $(document).ready(function(e){
+
+
+    var loadGoats = function(data){
+      var goats = data;
+
+      var source = $("#goatTemplate").html();
+      var template = Handlebars.compile(source);
+      var html = template(goats);
+
+      $('#goatList').html(html);
+    }
+
+    var fetchData = function() {
+      $.ajax({
+        type: 'GET',
+        url: '/api/goats',
+        success: function(data){
+          loadGoats(data);
+        }
+      })
+    }
+
+    fetchData();
+
+
+    $('#goatList').on('click', '.update-button', function(e){
+      var id = $(this).data('id');
+      var price = $(this).siblings('.price').val();
+
+      var data = {
+        goatId: id,
+        newPrice: price
+      }
+
+      $.ajax({
+        type: 'POST',
+        url: '/api/goat',
+        data: JSON.stringify({goat: data}),
+        contentType: 'application/json',
+        success: function(response){
+          if (response.success) {
+            $('#message').text("goat update was successful.").show();
+            setTimeout(function(){
+              $('#message').fadeOut();
+            }, 4000);
+            $('#goatList').empty();
+            fetchData();
+          } else {
+            $('#message').text("Error! goat update was not successful.");
+          }
+        },
+        error: function(x, h, r){
+          console.log(x);
+          console.log(h);
+          console.log(r);
+        }
+      })
+    })
+  })
+
+</script>
+
+</body>
+
+</html>
