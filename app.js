@@ -1,9 +1,11 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var _ = require("./js/underscore-min.js");
 
 var app = express();
 
 app.use('/', express.static(__dirname + '/pages'));
+app.use('/js', express.static(__dirname + '/js'));
 
 app.use( bodyParser.json() );
 
@@ -24,13 +26,10 @@ app.post('/api/goat', function(req, res){
     return;
   }
 
-  var goat = req.body.goat;
+  var data = req.body.goat;
 
-  for(var i=0; i<goats.length; i++){
-    if (goats[i].id == goat.goatId) {
-      goats[i].price = goat.newPrice;
-    }
-  }
+  var goat = _.find(goats, function(g){return g.id == data.goatId});
+  goat.price = data.newPrice;
 
   res.json({success: true});
 })
