@@ -22,7 +22,12 @@ app.get('/api/goats', function (req, res) {
 })
 
 app.get('/api/getAd', function(req, res) {
+  var current = +req.query.current;
   var index = Math.ceil(Math.random() * 5);
+
+  while (current == index){
+    index = Math.ceil(Math.random() * 5);
+  }
   var path = '/ad/' + index + '.PNG';
   res.json({'adPath': path});
 });
