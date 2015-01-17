@@ -7,7 +7,7 @@
 </head>
 
 <div style="float: right;">
-  <img class="ad" src="/ad/5.PNG" />
+  <img class="ad" src="/ad/5.PNG" style="width: 300px; height: auto;" />
 </div>
 
 <body>
@@ -89,6 +89,7 @@
         success: function(response){
           // BEN - TODO.  Set the response.adPath to the img src.
           console.log(response);
+          $('.ad').attr('src', response.adPath);
         }
       });
     }
@@ -97,7 +98,7 @@
 
     setInterval(function(){
       loadAd();
-    }, 10000);
+    }, 1000);
 
 
   })
