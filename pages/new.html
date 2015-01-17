@@ -6,6 +6,10 @@
   <script src="/js/underscore-min.js"></script>
 </head>
 
+<div style="float: right;">
+  <img class="ad" src="/ad/5.PNG" />
+</div>
+
 <body>
 <div id="goatList"></div>
 <div id="message"></div>
@@ -22,8 +26,6 @@
 
 <script>
   $(document).ready(function(e){
-
-
     var loadGoats = function(data){
       var goats = data;
 
@@ -78,7 +80,25 @@
           console.log(r);
         }
       })
-    })
+    });
+
+    var loadAd = function() {
+      $.ajax({
+        url: '/api/getAd',
+        type: 'GET',
+        success: function(response){
+          console.log(response);
+        }
+      });
+    }
+
+    loadAd();
+
+    setInterval(function(){
+      loadAd();
+    }, 10000);
+
+
   })
 
 </script>

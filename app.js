@@ -6,6 +6,7 @@ var app = express();
 
 app.use('/', express.static(__dirname + '/pages'));
 app.use('/js', express.static(__dirname + '/js'));
+app.use('/ad', express.static(__dirname + '/images/ad'));
 
 app.use( bodyParser.json() );
 
@@ -19,6 +20,12 @@ var goats = [
 app.get('/api/goats', function (req, res) {
   res.json(goats);
 })
+
+app.get('/api/getAd', function(req, res) {
+  var index = Math.ceil(Math.random() * 5);
+  var path = '/ad/' + index + '.PNG';
+  res.json({'adPath': path});
+});
 
 app.post('/api/goat', function(req, res){
   if (!req.body || !req.body.goat) {
