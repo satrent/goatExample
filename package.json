@@ -1,0 +1,19 @@
+{
+  "name": "Goats!",
+  "version": "0.0.0",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/satrent/goatExample"
+  },
+  "author": "Trent Nelson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/satrent/goatExample/issues"
+  },
+  "homepage": "https://github.com/satrent/goatExample",
+  "dependencies": {
+    "express": "~4.10.6",
+    "body-parser": "~1.10.0"
+  }
+}
