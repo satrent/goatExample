@@ -27,13 +27,13 @@ app.get('/api/getAd', function(req, res) {
   fs.readdir('./images/ad', function(err, f){
 
     var current = +req.query.current;
-    var index = Math.ceil(Math.random() * f.length);
+    var index = Math.floor(Math.random() * f.length);
 
     while (current == index){
-      index = Math.ceil(Math.random() * f.length);
+      index = Math.floor(Math.random() * f.length);
     }
-    var path = '/ad/' + index + '.PNG';
-    res.json({'adPath': path});
+    var path = '/ad/' + f[index];
+    res.json({'adPath': path, 'index': index});
   })
 
 });

@@ -25,6 +25,8 @@
 
 
 <script>
+  var currentAdIndex = 0;
+
   $(document).ready(function(e){
     var loadGoats = function(data){
       var goats = data;
@@ -84,12 +86,12 @@
 
     var loadAd = function() {
       $.ajax({
-        url: '/api/getAd',
+        url: '/api/getAd?current=' + currentAdIndex,
         type: 'GET',
         success: function(response){
-          // BEN - TODO.  Set the response.adPath to the img src.
           console.log(response);
           $('.ad').attr('src', response.adPath);
+          currentAdIndex = response.index;
         }
       });
     }
@@ -98,7 +100,7 @@
 
     setInterval(function(){
       loadAd();
-    }, 1000);
+    }, 5000);
 
 
   })
