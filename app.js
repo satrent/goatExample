@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var _ = require("./js/underscore-min.js");
+var fs = require("fs");
 
 var app = express();
 
@@ -22,14 +23,19 @@ app.get('/api/goats', function (req, res) {
 })
 
 app.get('/api/getAd', function(req, res) {
-  var current = +req.query.current;
-  var index = Math.ceil(Math.random() * 5);
 
-  while (current == index){
-    index = Math.ceil(Math.random() * 5);
-  }
-  var path = '/ad/' + index + '.PNG';
-  res.json({'adPath': path});
+  fs.readdir('./images/ad', function(err, f){
+
+    var current = +req.query.current;
+    var index = Math.ceil(Math.random() * f.length);
+
+    while (current == index){
+      index = Math.ceil(Math.random() * f.length);
+    }
+    var path = '/ad/' + index + '.PNG';
+    res.json({'adPath': path});
+  })
+
 });
 
 app.post('/api/goat', function(req, res){
