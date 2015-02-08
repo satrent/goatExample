@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var _ = require("./js/underscore-min.js");
 var fs = require("fs");
+var data = require("./data.js");
 
 var app = express();
 
@@ -11,16 +12,19 @@ app.use('/ad', express.static(__dirname + '/images/ad'));
 
 app.use( bodyParser.json() );
 
-var goats = [
-  {id: 1, name: 'Goat 1', price: "$535.60"},
-  {id: 2, name: 'Goat 2', price: "$741.60"},
-  {id: 3, name: 'Goat 3', price: "$545.60"},
-  {id: 4, name: 'Goat 4', price: "$448.34"}
-];
 
 app.get('/api/goats', function (req, res) {
-  res.json(goats);
+
+  data.getGoats(res, function(err, goats, res){
+    if (err){
+      res.json({result: false, error: err});
+    } else {
+      res.json(goats);
+    }
+  })
 })
+
+
 
 app.get('/api/getAd', function(req, res) {
 
@@ -39,15 +43,19 @@ app.get('/api/getAd', function(req, res) {
 });
 
 app.post('/api/goat', function(req, res){
+  console.log('inside the app.js function');
+  console.log(req.body.goat);
+
   if (!req.body || !req.body.goat) {
     res.json({success: false});
     return;
   }
 
-  var data = req.body.goat;
+  var goat = req.body.goat;
 
-  var goat = _.find(goats, function(g){return g.id == data.goatId});
-  goat.price = data.newPrice;
+  data.updateGoat(goat, function(err){
+    console.log(err);
+  })
 
   res.json({success: true});
 })

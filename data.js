@@ -16,11 +16,12 @@ var upsert = function(model, data, f){
 var Goat = mongoose.model('Goat', {name: String, price: Number});
 
 exports.getGoats = function(res, callback){
-  Request.find({}, function(err, goats){
+  Goat.find({}, function(err, goats){
     callback(err, goats, res);
   })
 }
 
 exports.updateGoat = function(goat, f){
+  console.log(goat);
   upsert(Goat, goat, f);
 }

@@ -14,6 +14,17 @@
 <div id="goatList"></div>
 <div id="message"></div>
 
+<hr>
+
+<div>
+  name: <input id="newGoatName">
+</div>
+<div>
+  price: <input id="newGoatPrice">
+</div>
+<button id="newGoat">Add New Goat</button>
+
+
 <script id="goatTemplate" type="text/x-handlebars-template">
   {{#each this}}
   <div class="goat">
@@ -28,6 +39,29 @@
   var currentAdIndex = 0;
 
   $(document).ready(function(e){
+    $('#newGoat').click(function(e){
+
+      // TODO - need some validation around this stuff.
+
+      var goat =
+      {
+        name: $('#newGoatName').val(),
+        price: $('#newGoatPrice').val()
+      }
+
+      $.ajax({
+        url: '/api/goat',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({goat: goat}),
+        success: function(response){
+          console.log(response);
+        }
+      })
+
+    });
+
+
     var loadGoats = function(data){
       var goats = data;
 
