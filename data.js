@@ -22,6 +22,5 @@ exports.getGoats = function(res, callback){
 }
 
 exports.updateGoat = function(goat, f){
-  console.log(goat);
   upsert(Goat, goat, f);
 }

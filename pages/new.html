@@ -29,7 +29,7 @@
   {{#each this}}
   <div class="goat">
 
-    {{name}} - <input class="price" value="{{price}}"> <button class="update-button" data-id="{{id}}" >update price</button>
+    <span class="goatName">{{name}}</span> - <input class="price" value="{{price}}"> <button class="update-button" data-id="{{_id}}" >update price</button>
     {{/each}}
   </div>
 </script>
@@ -56,6 +56,9 @@
         data: JSON.stringify({goat: goat}),
         success: function(response){
           console.log(response);
+
+          // TODO - make this work.
+          fetchData();
         }
       })
 
@@ -77,6 +80,7 @@
         type: 'GET',
         url: '/api/goats',
         success: function(data){
+          console.log(data);
           loadGoats(data);
         }
       })
@@ -87,10 +91,12 @@
     $('#goatList').on('click', '.update-button', function(e){
       var id = $(this).data('id');
       var price = $(this).siblings('.price').val();
+      var name = $(this).siblings('.goatName').text();
 
       var data = {
-        goatId: id,
-        newPrice: price
+        _id: id,
+        price: price,
+        name: name
       }
 
       $.ajax({
@@ -104,8 +110,6 @@
             setTimeout(function(){
               $('#message').fadeOut();
             }, 4000);
-            $('#goatList').empty();
-            fetchData();
           } else {
             $('#message').text("Error! goat update was not successful.");
           }

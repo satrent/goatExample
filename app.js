@@ -24,6 +24,20 @@ app.get('/api/goats', function (req, res) {
   })
 })
 
+app.post('/api/goat', function(req, res){
+  if (!req.body || !req.body.goat) {
+    res.json({success: false});
+    return;
+  }
+
+  var goat = req.body.goat;
+
+  data.updateGoat(goat, function(err){
+    console.log(err);
+  })
+
+  res.json({success: true});
+})
 
 
 app.get('/api/getAd', function(req, res) {
@@ -41,24 +55,6 @@ app.get('/api/getAd', function(req, res) {
   })
 
 });
-
-app.post('/api/goat', function(req, res){
-  console.log('inside the app.js function');
-  console.log(req.body.goat);
-
-  if (!req.body || !req.body.goat) {
-    res.json({success: false});
-    return;
-  }
-
-  var goat = req.body.goat;
-
-  data.updateGoat(goat, function(err){
-    console.log(err);
-  })
-
-  res.json({success: true});
-})
 
 var server = app.listen(8998, function () {
   console.log('Example app listening on 8998')
