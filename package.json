@@ -1,5 +1,6 @@
 {
   "name": "Goats!",
+  "description": "goat example app",
   "version": "0.0.0",
   "main": "app.js",
   "repository": {

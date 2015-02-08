@@ -1,0 +1,1 @@
+Goat app is a sample app to hone skills, learn the brain and overall better yourself with node.js, mongo DB, JQuery and handlebars.js.
