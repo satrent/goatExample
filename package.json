@@ -15,5 +15,8 @@
   "dependencies": {
     "express": "~4.10.6",
     "body-parser": "~1.10.0"
+  },
+  "devDependencies": {
+    "mongoose": "~3.8.23"
   }
 }
